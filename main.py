@@ -40,42 +40,42 @@ digitalT_std = {
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
         "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T1",
+    ): "T1",  # VBNM
     (
         "before { top: 0; left: 0; right: 0; height: 1px; } ",
         "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T2",
+    ): "T2",  # HJKP
     (
         "before { top: 0; left: 0; right: 0; height: 1px; } ",
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-    ): "T3",
+    ): "T3",  # UIOL
     (
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
         "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T4",
-    ("after { right: 2px; bottom: 0; width: 2px; height: 2px; } ",): "T5",
-    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",): "T6",
-    ("after { top: 0; right: 0; bottom: 0; width: 1px; } ",): "T7",
+    ): "T4",  # UJKL
+    ("after { right: 2px; bottom: 0; width: 2px; height: 2px; } ",): "T5",  # UJOL
+    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",): "T6",  # UJOP
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; } ",): "T7",  # HIOL
     (
         "before { top: 0; left: 0; right: 0; height: 1px; } ",
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T8",
+    ): "T8",  # HJKL
     (
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-    ): "T9",
+    ): "T9",  # HJOP
     (
         "before { top: 0; left: 0; right: 0; height: 1px; } ",
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
         "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T10",
+    ): "T10",  # UIOP
     (
         "before { top: 0; left: 0; right: 0; height: 1px; } ",
         "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
         "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "T11",
+    ): "T11",  # HJOL
 }
 
 digits_digitalT = {
@@ -120,7 +120,7 @@ digitalT_scrape = driver.find_element(By.XPATH, "/html/body/style").get_attribut
 css_info = [
     re.split("\s|:", item[2:], 1)
     for item in digitalT_scrape.split(".digitalT")
-    if item != ""
+    if item not in ("", " ")
 ]
 key, val = map(list, zip(*css_info))
 css_dict = {}
