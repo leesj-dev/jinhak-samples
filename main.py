@@ -124,11 +124,11 @@ css_info = [
 ]
 key, val = map(list, zip(*css_info))
 css_dict = {}
-for i in range(0, len(key) - 1):
+for i in range(len(key) - 1):
     if key[i] != key[i + 1]:
         css_dict[key[i]] = ()
 css_dict[key[len(key) - 1]] = ()
-for i in range(0, len(key)):
+for i in range(len(key)):
     css_dict[key[i]] += (val[i],)
 # css_dict = {y: x for x, y in css_dict.items()} -- 변환 용도 (사용 금지)
 
@@ -154,6 +154,7 @@ for item in scores:
     except:
         print("Error")
 
+# 디버깅 용도
 time.sleep(10000)
 
 """
