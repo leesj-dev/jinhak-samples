@@ -33,6 +33,14 @@ driver.find_element(By.XPATH, '//*[@id="txtMemPass"]').send_keys(login_pw)
 driver.find_element(By.XPATH, '//*[@id="panel_1"]/div/div[1]/div[3]/button').click()
 driver.implicitly_wait(5)
 
+## 군별로 실행해야 하는 js 정리
+driver.switch_to.frame(driver.find_element(By.ID, "ifrmJ1MyApplyListBtm"))  # iframe 내에 있으므로
+group_dict = {}
+for i in range(3):
+    group_name = driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/table/tbody/tr[' + str(i + 1) + ']/td[3]').get_attribute("innerHTML")[:-1]  # '군' 제거
+    group_js = driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/table/tbody/tr[' + str(i + 1) + ']/td[10]/a').get_attribute("href")[11:]  # 앞의 'javascript:' 제거
+    group_dict[group_name] = group_js
+
 ## list의 문자들을 int로 변환하는 함수
 def digit_to_int(classes: list, type_of_class: str) -> float:
     length: int = len(classes) // convert.digital_dict[type_of_class][2]
@@ -43,13 +51,13 @@ def digit_to_int(classes: list, type_of_class: str) -> float:
     return float(num)
 
 ## 군별 크롤링
-def scrape_group(group_id):
+def scrape_group(group_id_js):
     driver.switch_to.window(driver.window_handles[0])  # 메인창으로 이동
-    driver.execute_script("parent.ReportOpenLast('3', '" + group_id + "', 'TOT');")
+    driver.execute_script(group_id_js)
     driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
     driver.execute_script("window.scrollTo(0,1500)")  # 스크롤 내리기
     time.sleep(5)  # 내부 iframe 로딩
-    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))  # iframe 내에 있으므로
+    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))
 
     # css 정보 스크레이핑
     digital_css: str = driver.find_element(By.XPATH, "/html/body/style").get_attribute("innerHTML")
@@ -104,10 +112,8 @@ def scrape_group(group_id):
 
     time.sleep(3)
 
-
-group_ids = ["2C31461515AD59D5E40", "2C31415917257D94E38", "2C313705174A9FE40AA"]
-for item in group_ids:
-    scrape_group(item)
+for group in ["가", "나", "다"]:
+    scrape_group(group_dict[group])
 
 # 디버깅 용도
 time.sleep(10000)
