@@ -127,5 +127,5 @@ until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 Tru
 for group in ["가", "나", "다"]:
     scrape_group(group_dict[group], until_self)
 
-# 디버깅 용도
+# 코드 실행 후 창 안 닫기게 하려고
 time.sleep(10000)
