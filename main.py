@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import os
 import time
 import re
-import convert
+import convert  # 반드시 convert.py를 동일 디렉토리에 둬야 함
 
 
 ## 초기설정
@@ -117,6 +117,7 @@ def scrape_group(group_id_js: str, until_self: bool):
             print("Error", end=" ")
         finally:
             print(subjects[i])
+
 
 until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
 for group in ["가", "나", "다"]:
