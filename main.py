@@ -15,7 +15,7 @@ import convert
 load_dotenv()
 login_id = os.getenv("id")  # 진학사 ID
 login_pw = os.getenv("pw")  # 진학사 비밀번호
-link_main = "https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1"
+link = "https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1"
 
 chrome_options = Options()
 # headless mode. 향후 개발이 모두 완료된 후 아래 주석 제거할 예정
@@ -27,7 +27,7 @@ chrome_options.add_argument("--start-maximized")
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 ## 링크 접속
-driver.get("https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1")
+driver.get(link)
 driver.find_element(By.XPATH, '//*[@id="txtMemID"]').send_keys(login_id)
 driver.find_element(By.XPATH, '//*[@id="txtMemPass"]').send_keys(login_pw)
 driver.find_element(By.XPATH, '//*[@id="panel_1"]/div/div[1]/div[3]/button').click()
@@ -83,13 +83,8 @@ def scrape_group(group_id_js: str, until_self: bool):
     css_dict[key[len(key) - 1]] = ()
     for i in range(len(key)):
         css_dict[key[i]] += (val[i],)
-    # print({y: x for x, y in css_dict.items()})  # -- 변환 용도 (사용 금지)
+    # print({y: x for x, y in css_dict.items()}) -- convert.py의 dictionary들을 만들기 위한 용도 (사용 금지)
 
-    ## 과목 스크레이핑 (좀 있다가 할 것)
-    # subjects = driver.find_elements(By.XPATH, '//*[@id="DivA"]/div/*/div[2]/p[1]/span/span')
-    # print(subjects)
-
-    # scores: list = driver.find_elements(By.CLASS_NAME, digital_info)[1::2]  # -- 구식
     scores, subjects = [], []
     i = 1
     while True:
