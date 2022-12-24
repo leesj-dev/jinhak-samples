@@ -118,9 +118,12 @@ def scrape_group(group_id_js: str, until_self: bool):
         finally:
             print(subjects[i])
 
+    print("")  # 가독성을 위해 빈 줄 추가
+
 
 until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
 for group in ["가", "나", "다"]:
+    print("〈" + group + "군 〉")
     scrape_group(group_dict[group], until_self)
 
 # 코드 실행 후 창 안 닫기게 하려고
