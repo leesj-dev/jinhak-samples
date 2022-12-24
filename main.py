@@ -105,7 +105,7 @@ def scrape_group(group_id):
     time.sleep(3)
 
 
-group_ids = ["2C31461515AD59D5E40", "2C31461515AD59D5E40", "2C313705174A9FE40AA"]
+group_ids = ["2C31461515AD59D5E40", "2C31415917257D94E38", "2C313705174A9FE40AA"]
 for item in group_ids:
     scrape_group(item)
 
