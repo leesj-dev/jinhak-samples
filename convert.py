@@ -1,3 +1,30 @@
+digital_std = {
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "S1",
+    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S2",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S3",
+    ("after { right: 2px; bottom: 0; width: 2px; height: 2px;}",): "S4",
+    ("em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S5",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S6",
+    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S7",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S8",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px;}", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S9",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px;}",): "S10",
+}
+
+digits_digital = {
+    ("S10", "S10"): "1",
+    ("S7", "S5"): "2",
+    ("S7", "S3"): "3",
+    ("S9", "S10"): "4",
+    ("S6", "S3"): "5",
+    ("S5", "S9"): "6",
+    ("S1", "S10"): "7",
+    ("S8", "S9"): "8",
+    ("S8", "S10"): "9",
+    ("S2", "S9"): "0",
+    ("*", "S4"): ".",
+}
+
 digitalT_std = {
     ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T1",
     ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T2",
@@ -57,34 +84,6 @@ digits_digitalM = {
     ("M2", "M12", "M11"): "9",
     ("M2", "M16", "M5"): "0",
     ("*", "*", "M6"): ".",
-}
-
-
-digital_std = {
-    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "S1",
-    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S2",
-    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S3",
-    ("after { right: 2px; bottom: 0; width: 2px; height: 2px;}",): "S4",
-    ("em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S5",
-    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S6",
-    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S7",
-    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S8",
-    ("after { top: 0; right: 0; bottom: 0; width: 1px;}", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S9",
-    ("after { top: 0; right: 0; bottom: 0; width: 1px;}",): "S10",
-}
-
-digits_digital = {
-    ("S10", "S10"): "1",
-    ("S7", "S5"): "2",
-    ("S7", "S3"): "3",
-    ("S9", "S10"): "4",
-    ("S6", "S3"): "5",
-    ("S5", "S9"): "6",
-    ("S1", "S10"): "7",
-    ("S8", "S9"): "8",
-    ("S8", "S10"): "9",
-    ("S2", "S9"): "0",
-    ("*", "S4"): ".",
 }
 
 digital_dict = {
