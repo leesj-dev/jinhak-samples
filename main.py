@@ -116,7 +116,7 @@ def scrape_group(group_id_js: str, until_self: bool):
         except:
             print("Error", end=" ")
         finally:
-            print(subjects[i])
+            print(' '.join(subjects[i]))
 
     print("")  # 가독성을 위해 빈 줄 추가
 
