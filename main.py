@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import os
 import time
 import re
+import convert_tables
+
 
 ## 초기설정
 load_dotenv()
@@ -33,71 +35,12 @@ driver.find_element(By.XPATH, '//*[@id="txtMemPass"]').send_keys(login_pw)
 driver.find_element(By.XPATH, '//*[@id="panel_1"]/div/div[1]/div[3]/button').click()
 driver.implicitly_wait(5)
 
-
-digitalT_std = {
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T1",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T2",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "T3",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T4",
-    ("after { right: 2px; bottom: 0; width: 2px; height: 2px; }",): "T5",
-    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; }",): "T6",
-    ("after { top: 0; right: 0; bottom: 0; width: 1px; }",): "T7",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T8",
-    (
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "T9",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T10",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "T11",
-}
-
-digits_digitalT = {
-    ("T7", "T7"): "1",
-    ("T3", "T2"): "2",
-    ("T3", "T11"): "3",
-    ("T9", "T3"): "4",
-    ("T8", "T11"): "5",
-    ("T6", "T1"): "6",
-    ("T3", "T7"): "7",
-    ("T10", "T1"): "8",
-    ("T10", "T3"): "9",
-    ("T10", "T4"): "0",
-    ("*", "T5"): ".",
-}
-
 ## list의 문자들을 int로 변환하는 함수
 def digit_to_int(classes: list, type_of_class: str) -> float:
     length = len(classes) // 2
     num = ""
     if type_of_class == "digitalT":
-        dictionary = digits_digitalT
+        dictionary = convert_tables.digits_digitalT
     else:
         print("Error")
 
@@ -154,7 +97,7 @@ for item in scores:
     # classes 내의 각 class_name에 대하여 -> css 정보로 변환 -> 다시 Tx 표준형으로 변환 -> 해당되는 숫자로 변환
     for class_name in classes:
         try:
-            classes_std.append(digitalT_std[css_dict[class_name]])
+            classes_std.append(convert_tables.digitalT_std[css_dict[class_name]])
         except:  # 아무것도 없는 거는 애초에 CSS 정의가 안 되어있음
             classes_std.append("*")
     try:
