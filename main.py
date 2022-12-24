@@ -16,7 +16,7 @@ login_pw = os.getenv("pw")  # 진학사 비밀번호
 link_main = "https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1"
 
 chrome_options = Options()
-## 향후 개발이 모두 완료된 후 주석 제거할 예정
+# headless mode. 향후 개발이 모두 완료된 후 아래 주석 제거할 예정
 """
 chrome_options.add_argument("headless")
 chrome_options.add_argument("window-size=1920x1080")
@@ -36,63 +36,63 @@ driver.implicitly_wait(5)
 
 digitalT_std = {
     (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T1",  # VBNM
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T2",  # HJKP
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-    ): "T3",  # UIOL
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; } ",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T4",  # UJKL
-    ("after { right: 2px; bottom: 0; width: 2px; height: 2px; } ",): "T5",  # UJOL
-    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",): "T6",  # UJOP
-    ("after { top: 0; right: 0; bottom: 0; width: 1px; } ",): "T7",  # HIOL
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T8",  # HJKL
-    (
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-    ): "T9",  # HJOP
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; } ",
-    ): "T10",  # UIOP
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; } ",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; } ",
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
         "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "T11",  # HJOL
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+    ): "T1",
+    (
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+    ): "T2",
+    (
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
+    ): "T3",
+    (
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
+        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+    ): "T4",
+    ("after { right: 2px; bottom: 0; width: 2px; height: 2px; }",): "T5",
+    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; }",): "T6",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }",): "T7",
+    (
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+    ): "T8",
+    (
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
+    ): "T9",
+    (
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
+        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
+    ): "T10",
+    (
+        "before { top: 0; left: 0; right: 0; height: 1px; }",
+        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
+        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
+    ): "T11",
 }
 
 digits_digitalT = {
-    ("T1", "T1"): "1",
-    ("T7", "T4"): "2",
-    ("T7", "T3"): "3",
-    ("T6", "T7"): "4",
-    ("T9", "T3"): "5",
-    ("T5", "T8"): "6",
-    ("T7", "T1"): "7",
-    ("T10", "T8"): "8",
-    ("T10", "T7"): "9",
-    ("T10", "T11"): "0",
-    ("*", "T2"): ".",
+    ("T7", "T7"): "1",
+    ("T3", "T2"): "2",
+    ("T3", "T11"): "3",
+    ("T9", "T3"): "4",
+    ("T8", "T11"): "5",
+    ("T6", "T1"): "6",
+    ("T3", "T7"): "7",
+    ("T10", "T1"): "8",
+    ("T10", "T3"): "9",
+    ("T10", "T4"): "0",
+    ("*", "T5"): ".",
 }
 
-
+## list의 문자들을 int로 변환하는 함수
 def digit_to_int(classes: list, type_of_class: str) -> float:
     length = len(classes) // 2
     num = ""
@@ -101,27 +101,35 @@ def digit_to_int(classes: list, type_of_class: str) -> float:
     else:
         print("Error")
 
-    # 아래 split문은 패턴이 2가지일 때만 성립하며, 3일 때도 있으므로 추후 다른 방법을 강구해보겠음
+    # 아래 split문은 패턴이 2가지일 때만 성립하며, 3일 때도 있으므로(digitalM) 추후 다른 방법을 강구해보겠음
     for item in zip(classes[:length], classes[length:]):
         num += dictionary[item]
     return float(num)
 
 
-## 가군
-driver.execute_script("parent.ReportOpenLast('3', '23R146151E91AB6B118', 'TOT');")  # 가군
+### 가군
+driver.execute_script("parent.ReportOpenLast('3', '2C31461515AD59D5E40', 'TOT');")  # 가군
 driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
 driver.execute_script("window.scrollTo(0,1400)")  # 스크롤 내리기
 time.sleep(5)
+driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))  # iframe 내에 있으므로
+
+## 점수 스크레이핑
 digitalT_scrape = driver.find_element(By.XPATH, "/html/body/style").get_attribute(
     "innerHTML"
 )
 
-# 전처리
+# 점수 전처리
 css_info = [
     re.split("\s|:", item[2:], 1)
     for item in digitalT_scrape.split(".digitalT")
-    if item not in ("", " ")
+    if item != " "
 ]
+
+for item in css_info:  # 마지막 문자 공백 시 제거
+    if item[1][-1] == " ":
+        item[1] = item[1][:-1]
+
 key, val = map(list, zip(*css_info))
 css_dict = {}
 for i in range(len(key) - 1):
@@ -132,23 +140,23 @@ for i in range(len(key)):
     css_dict[key[i]] += (val[i],)
 # css_dict = {y: x for x, y in css_dict.items()} -- 변환 용도 (사용 금지)
 
+## 과목 스크레이핑 (좀 있다가 할 것)
 # subjects = driver.find_elements(By.XPATH, '//*[@id="DivA"]/div/*/div[2]/p[1]/span/span')
 # print(subjects)
 scores = driver.find_elements(By.CLASS_NAME, "digitalT")
-print(scores)  # 임시
 
+# HTML 파싱
 for item in scores:
     soup = BeautifulSoup(item.get_attribute("innerHTML"), "html.parser")
     classes = [value for item in soup.find_all(class_=True) for value in item["class"]]
     classes_std = []
 
-    # classes 내의 각 class_name에 대하여 -> css 정보로 변환 -> 다시 Tx 표준형으로 변환 -> 해당되는 것으로 변환
+    # classes 내의 각 class_name에 대하여 -> css 정보로 변환 -> 다시 Tx 표준형으로 변환 -> 해당되는 숫자로 변환
     for class_name in classes:
         try:
             classes_std.append(digitalT_std[css_dict[class_name]])
         except:  # 아무것도 없는 거는 애초에 CSS 정의가 안 되어있음
             classes_std.append("*")
-
     try:
         print(digit_to_int(classes_std, "digitalT"))
     except:

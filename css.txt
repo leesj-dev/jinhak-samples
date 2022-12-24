@@ -113,3 +113,5 @@ else(***) : 공백
  ('em:after { top: 0; bottom: 0; left: 0; width: 1px; } ', 'after { top: 0; right: 0; bottom: 0; width: 1px; } '): 'T9',
  ('before { top: 0; left: 0; right: 0; height: 1px; } ', 'after { top: 0; right: 0; bottom: 0; width: 1px; } ', 'em:after { top: 0; bottom: 0; left: 0; width: 1px; } '): 'T10',
  ('before { top: 0; left: 0; right: 0; height: 1px; } ', 'after { top: 0; right: 0; bottom: 0; width: 1px; } ', 'em:before { right: 0; bottom: 0; left: 0; height: 1px; }'): 'T11'}
+
+
