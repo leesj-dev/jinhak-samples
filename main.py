@@ -37,7 +37,7 @@ driver.implicitly_wait(5)
 def digit_to_int(classes: list, type_of_class: str) -> float:
     length: int = len(classes) // convert.digital_dict[type_of_class][2]
     convert_dict_2: dict = convert.digital_dict[type_of_class][1]
-    num: str = ""
+    num = ""
     for item in zip(*[classes[i : i + length] for i in range(0, len(classes), length)]):
         num += convert_dict_2[item]
     return float(num)
