@@ -51,11 +51,11 @@ def digit_to_int(classes: list, type_of_class: str) -> float:
     return float(num)
 
 ## 군별 크롤링
-def scrape_group(group_id_js):
+def scrape_group(group_id_js: str, until_self: bool):
     driver.switch_to.window(driver.window_handles[0])  # 메인창으로 이동
     driver.execute_script(group_id_js)
     driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
-    driver.execute_script("window.scrollTo(0,1500)")  # 스크롤 내리기
+    driver.execute_script("window.scrollTo(0,1500)")  # iframe 로딩을 위해 스크롤 내리기
     time.sleep(5)  # 내부 iframe 로딩
     driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))
 
@@ -89,12 +89,23 @@ def scrape_group(group_id_js):
     # subjects = driver.find_elements(By.XPATH, '//*[@id="DivA"]/div/*/div[2]/p[1]/span/span')
     # print(subjects)
 
-    # [1::2]는 중복방지를 위해 그 중 짝수 번째(bottom)만 출력
-    scores: list = driver.find_elements(By.CLASS_NAME, digital_info)[1::2]
+    # scores: list = driver.find_elements(By.CLASS_NAME, digital_info)[1::2]  # -- 구식
+    scores, subjects = [], []
+    i = 1
+    while True:
+        try:
+            scores.append(driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']/div[2]/p[1]/span/b/span').get_attribute("innerHTML"))
+            subjects.append(driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']/div[2]/p[1]/span/span').get_attribute("innerHTML").split(","))
+            i += 1
+        except:
+            break
+        else:
+            if until_self is True and "me" in driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']').get_attribute("class"):
+                break
 
     # HTML 파싱
-    for item in scores:
-        soup = BeautifulSoup(item.get_attribute("innerHTML"), "html.parser")
+    for i in range(len(scores)):
+        soup = BeautifulSoup(scores[i], "html.parser")
         classes = [value for item in soup.find_all(class_=True) for value in item["class"]]
         convert_dict_1: dict = convert.digital_dict[digital_info][0]
         classes_std = []
@@ -106,14 +117,15 @@ def scrape_group(group_id_js):
             except:  # 아무것도 없는 거는 애초에 CSS 정의가 안 되어있으므로 * 처리
                 classes_std.append("*")
         try:
-            print("{:.2f}".format(digit_to_int(classes_std, digital_info)))  # 소숫점 둘째 자리까지 출력
+            print("{:.2f}".format(digit_to_int(classes_std, digital_info)), end=" ")  # 소숫점 둘째 자리까지 출력
         except:
-            print("Error")
+            print("Error", end=" ")
+        finally:
+            print(subjects[i])
 
-    time.sleep(3)
-
+until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
 for group in ["가", "나", "다"]:
-    scrape_group(group_dict[group])
+    scrape_group(group_dict[group], until_self)
 
 # 디버깅 용도
 time.sleep(10000)
