@@ -1,45 +1,15 @@
 digitalT_std = {
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T1",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T2",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "T3",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T4",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T1",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T2",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "T3",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T4",
     ("after { right: 2px; bottom: 0; width: 2px; height: 2px; }",): "T5",
     ("em:after { top: 0; bottom: 0; left: 0; width: 1px; }",): "T6",
     ("after { top: 0; right: 0; bottom: 0; width: 1px; }",): "T7",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T8",
-    (
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "T9",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "T10",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "T11",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T8",
+    ("em:after { top: 0; bottom: 0; left: 0; width: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "T9",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "T10",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "T11",
 }
 
 digits_digitalT = {
@@ -57,68 +27,22 @@ digits_digitalT = {
 }
 
 digitalM_std = {
-    (
-        "after { top: 50%; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M1",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "M2",
-    (
-        "after { top: 0; right: 0; bottom: 50%; width: 1px; }",
-        "em:after { top: 50%; bottom: 0%; left: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M3",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M4",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "M5",
+    ("after { top: 50%; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M1",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "M2",
+    ("after { top: 0; right: 0; bottom: 50%; width: 1px; }", "em:after { top: 50%; bottom: 0%; left: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M3",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M4",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "M5",
     ("after { right: 2px; bottom: 0; width: 2px; height: 2px; }",): "M6",
     ("em:after { top: 0; bottom: 0; left: 0; width: 1px; }",): "M7",
-    (
-        "after { top: 50%; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 50%; left: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M8",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "M9",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M10",
+    ("after { top: 50%; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 50%; left: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M8",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "M9",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M10",
     ("after { top: 0; right: 0; bottom: 0; width: 1px; }",): "M11",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 50%; left: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }",
-    ): "M12",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "M13",
-    (
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "M14",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "M15",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "M16",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 50%; left: 0; width: 1px; }", "em:before { right: 0; bottom: 35%; left: 0; height: 1px; }"): "M12",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "M13",
+    ("em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "M14",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "M15",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "M16",
 }
 
 digits_digitalM = {
@@ -137,45 +61,15 @@ digits_digitalM = {
 
 
 digital_std = {
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-    ): "S1",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px;}",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "S2",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "S3",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }"): "S1",
+    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S2",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S3",
     ("after { right: 2px; bottom: 0; width: 2px; height: 2px;}",): "S4",
-    (
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px;}",
-    ): "S5",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px;}",
-    ): "S6",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px;}",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-    ): "S7",
-    (
-        "before { top: 0; left: 0; right: 0; height: 1px; }",
-        "after { top: 0; right: 0; bottom: 0; width: 1px; }",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px;}",
-    ): "S8",
-    (
-        "after { top: 0; right: 0; bottom: 0; width: 1px;}",
-        "em:before { right: 0; bottom: 0; left: 0; height: 1px; }",
-        "em:after { top: 0; bottom: 0; left: 0; width: 1px; }",
-    ): "S9",
+    ("em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S5",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S6",
+    ("before { top: 0; left: 0; right: 0; height: 1px;}", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }"): "S7",
+    ("before { top: 0; left: 0; right: 0; height: 1px; }", "after { top: 0; right: 0; bottom: 0; width: 1px; }", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px;}"): "S8",
+    ("after { top: 0; right: 0; bottom: 0; width: 1px;}", "em:before { right: 0; bottom: 0; left: 0; height: 1px; }", "em:after { top: 0; bottom: 0; left: 0; width: 1px; }"): "S9",
     ("after { top: 0; right: 0; bottom: 0; width: 1px;}",): "S10",
 }
 

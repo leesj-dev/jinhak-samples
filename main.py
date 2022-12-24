@@ -105,7 +105,8 @@ def scrape_group(group_id):
 
 
 group_ids = ["2C31461515AD59D5E40", "2C31461515AD59D5E40", "2C313705174A9FE40AA"]
-scrape_group(group_ids[2])
+for item in group_ids:
+    scrape_group(item)
 
 # 디버깅 용도
 time.sleep(10000)
