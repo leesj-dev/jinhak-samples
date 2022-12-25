@@ -51,16 +51,22 @@ def digit_to_int(classes: list, type_of_class: str) -> float:
     return float(num)
 
 ## 군별 크롤링
-def scrape_group(group_id_js: str, until_self: bool):
+def scrape_group(group_id_js: str, all_applicant: bool, until_self: bool):
     driver.switch_to.window(driver.window_handles[0])  # 메인창으로 이동
     driver.execute_script(group_id_js)
     driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
-    driver.execute_script("fn_Href(1)")##
-    driver.execute_script("GoTab(2);return false;")
+    driver.execute_script("fn_Href(1)")
+    if all_applicant == True:
+        driver.execute_script("GoTab(2);return false;") #전체지원자 통계 전환
+    applicant_num = driver.find_element(By.XPATH, "//*[@id='rUnivInfo']/div/div[3]/ul/li[7]/dl/dd").get_attribute("innerHTML")
+    applicant_num = applicant_num.replace(" ", "")
     driver.execute_script("window.scrollTo(0,1500)")  # iframe 로딩을 위해 스크롤 내리기
     time.sleep(5)  # 내부 iframe 로딩
-    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))##
-    driver.switch_to.frame(driver.find_element(By.ID, "ifrmRank"))##
+    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))
+    highest = driver.find_element(By.XPATH, "/html/body/form[1]/div[3]/div[1]/ul/li[1]").get_attribute("id") #지원자 분포 최고점수 범위 
+    lowest = driver.find_element(By.XPATH, "//*[@id='graph_1']/div[1]/ul/li[last()]").get_attribute("id")
+    driver.execute_script("ViewDetailRank(" + str(lowest) + ", " + str(highest) + ", 0," + str(applicant_num) + ")")
+    driver.switch_to.frame(driver.find_element(By.ID, "ifrmRank"))  #점수분포 iframe으로 전환
 
     # css 정보 스크레이핑
     digital_css: str = driver.find_element(By.XPATH, "/html/body/style").get_attribute("innerHTML")
@@ -96,7 +102,6 @@ def scrape_group(group_id_js: str, until_self: bool):
             subjects.append(driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/div/div[' + str(i) +']/div[2]/p[1]/span/span').get_attribute("innerHTML").split(","))
             i += 1
         except:
-
             break
         else:
             if until_self is True and "me" in driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/div/div[' + str(i) + ']').get_attribute("class"):
@@ -126,9 +131,10 @@ def scrape_group(group_id_js: str, until_self: bool):
 
 
 until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
+all_applicant = False #전체지원자 통계 크롤링 == True, 실제지원자 통계 크롤링 == False
 for group in ["가", "나", "다"]:
     print("〈" + group + "군 〉")
-    scrape_group(group_dict[group], until_self)
+    scrape_group(group_dict[group], all_applicant, until_self)
 
 # 코드 실행 후 창 안 닫기게 하려고
 time.sleep(10000)
