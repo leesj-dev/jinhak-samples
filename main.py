@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import os
 import time
+import sys
 import re
 import convert  # 반드시 convert.py를 동일 디렉토리에 둬야 함
 
@@ -133,8 +134,14 @@ def scrape_group(group_id_js: str, all_applicant: bool, until_self: bool):
 until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
 all_applicant = False #전체지원자 통계 크롤링 == True, 실제지원자 통계 크롤링 == False
 for group in ["가", "나", "다"]:
-    print("〈" + group + "군 〉")
-    scrape_group(group_dict[group], all_applicant, until_self)
+    if all_applicant == True:
+        sys.stdout = open('all_applicant.csv', 'a')
+        print("〈" + group + "군 〉")
+        scrape_group(group_dict[group], all_applicant, until_self)
+    else:
+        sys.stdout = open('real_applicant.csv', 'a')
+        print("〈" + group + "군 〉")
+        scrape_group(group_dict[group], all_applicant, until_self)
 
 # 코드 실행 후 창 안 닫기게 하려고
 time.sleep(10000)
