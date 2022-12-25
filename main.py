@@ -55,9 +55,12 @@ def scrape_group(group_id_js: str, until_self: bool):
     driver.switch_to.window(driver.window_handles[0])  # 메인창으로 이동
     driver.execute_script(group_id_js)
     driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
+    driver.execute_script("fn_Href(1)")##
+    driver.execute_script("GoTab(2);return false;")
     driver.execute_script("window.scrollTo(0,1500)")  # iframe 로딩을 위해 스크롤 내리기
     time.sleep(5)  # 내부 iframe 로딩
-    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))
+    driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))##
+    driver.switch_to.frame(driver.find_element(By.ID, "ifrmRank"))##
 
     # css 정보 스크레이핑
     digital_css: str = driver.find_element(By.XPATH, "/html/body/style").get_attribute("innerHTML")
@@ -89,13 +92,14 @@ def scrape_group(group_id_js: str, until_self: bool):
     i = 1
     while True:
         try:
-            scores.append(driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']/div[2]/p[1]/span/b/span').get_attribute("innerHTML"))
-            subjects.append(driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']/div[2]/p[1]/span/span').get_attribute("innerHTML").split(","))
+            scores.append(driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/div/div[' + str(i) +']/div[2]/p[1]/span/b/span').get_attribute("innerHTML"))
+            subjects.append(driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/div/div[' + str(i) +']/div[2]/p[1]/span/span').get_attribute("innerHTML").split(","))
             i += 1
         except:
+
             break
         else:
-            if until_self is True and "me" in driver.find_element(By.XPATH, '//*[@id="DivA"]/div/div[' + str(i) + ']').get_attribute("class"):
+            if until_self is True and "me" in driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/div/div[' + str(i) + ']').get_attribute("class"):
                 break
 
     # HTML 파싱
