@@ -4,17 +4,34 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-import os
+from pwinput import pwinput
 import time
+import os.path
 import sys
 import re
 import convert  # 반드시 convert.py를 동일 디렉토리에 둬야 함
 
 
 ## 초기설정
-login_id = input("진학사 ID를 입력하세요:\n")  # 진학사 ID
-login_pw = input("진학사 비밀번호를 입력하세요:\n")  # 진학사 비밀번호
+login_id = input("진학사 ID: ")  # 진학사 ID
+login_pw = pwinput(prompt="진학사 비밀번호: ", mask="*")  # 진학사 비밀번호
 link = "https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1"
+
+while True:
+    until_self = input("전체 등수 크롤링은 1, 본인 앞의 등수까지 크롤링은 2를 입력하세요: ")
+    if until_self in ["1", "2"]:
+        until_self = bool(int(until_self) - 1)
+        break
+    else:
+        print("1 또는 2를 입력하세요: ")
+
+while True:
+    all_applicant = input("실제지원자 통계 크롤링은 1, 전체지원자 통계 크롤링은 2를 입력하세요: ")
+    if all_applicant in ["1", "2"]:
+        all_applicant = bool(int(all_applicant) - 1)
+        break
+    else:
+        print("1 또는 2를 입력하세요: ")
 
 chrome_options = Options()
 # headless mode. 향후 개발이 모두 완료된 후 아래 주석 제거할 예정
@@ -22,6 +39,7 @@ chrome_options = Options()
 chrome_options.add_argument("headless")
 chrome_options.add_argument("window-size=1920x1080")
 chrome_options.add_argument("--start-maximized")
+
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
@@ -56,13 +74,13 @@ def scrape_group(group_id_js: str, all_applicant: bool, until_self: bool):
     driver.switch_to.window(driver.window_handles[1])  # 팝업창으로 이동
     driver.execute_script("fn_Href(1)")
     if all_applicant == True:
-        driver.execute_script("GoTab(2);return false;") #전체지원자 통계 전환
+        driver.execute_script("GoTab(2);return false;") # 전체지원자 통계 전환
     applicant_num = driver.find_element(By.XPATH, "//*[@id='rUnivInfo']/div/div[3]/ul/li[7]/dl/dd").get_attribute("innerHTML")
     applicant_num = applicant_num.replace(" ", "")
     driver.execute_script("window.scrollTo(0,1500)")  # iframe 로딩을 위해 스크롤 내리기
     time.sleep(5)  # 내부 iframe 로딩
     driver.switch_to.frame(driver.find_element(By.ID, "ifrmGraph"))
-    highest = driver.find_element(By.XPATH, "/html/body/form[1]/div[3]/div[1]/ul/li[1]").get_attribute("id") #지원자 분포 최고점수 범위 
+    highest = driver.find_element(By.XPATH, "/html/body/form[1]/div[3]/div[1]/ul/li[1]").get_attribute("id") #지원자 분포 최고점수 범위
     lowest = driver.find_element(By.XPATH, "//*[@id='graph_1']/div[1]/ul/li[last()]").get_attribute("id")
     driver.execute_script("ViewDetailRank(" + str(lowest) + ", " + str(highest) + ", 0," + str(applicant_num) + ")")
     driver.switch_to.frame(driver.find_element(By.ID, "ifrmRank"))  #점수분포 iframe으로 전환
@@ -128,39 +146,35 @@ def scrape_group(group_id_js: str, all_applicant: bool, until_self: bool):
 
     print("")  # 가독성을 위해 빈 줄 추가
 
-until_self = bool
-all_applicant = bool
-while until_self != True or until_self != False:
-    until_self = input("본인 앞의 등수까지 크롤링 == True / 전체 등수 크롤링 == False 을 입력하세요:\n")
-    if until_self == "True":
-        until_self = True
-        break
-    elif until_self == "False":
-        until_self = False
-        break
-    else:
-        print("True 또는 False를 입력하세요\n")
-
-while all_applicant != True or all_applicant != False:
-    all_applicant = input("전체지원자 통계 크롤링 == True / 실제지원자 통계 크롤링 == False 을 입력하세요\n")
-    if all_applicant == "True":
-        all_applicant = True
-        break
-    elif all_applicant == "False":
-        all_applicant = False
-        break
-    else:
-        print("True 또는 False를 입력하세요\n")
-
 for group in ["가", "나", "다"]:
-    if all_applicant == True:
-        sys.stdout = open('all_applicant.csv', 'w')
-        print("〈" + group + "군 〉")
-        scrape_group(group_dict[group], all_applicant, until_self)
-    else:
-        sys.stdout = open('real_applicant.csv', 'w')
-        print("〈" + group + "군 〉")
-        scrape_group(group_dict[group], all_applicant, until_self)
+    if all_applicant:
+        if os.path.isfile('all_applicant.csv'):
+            fileexist = True
+        else:
+            fileexist = False
 
+        if fileexist and group == '가':
+            sys.stdout = open('all_applicant.csv', 'w')
+            print("〈" + group + "군 〉")
+            scrape_group(group_dict[group], all_applicant, until_self)
+        else:
+            sys.stdout = open('all_applicant.csv', 'a')
+            print("〈" + group + "군 〉")
+            scrape_group(group_dict[group], all_applicant, until_self)     
+    else:
+        if os.path.isfile('real_applicant.csv'):
+            fileexist = True
+        else:
+            fileexist = False
+
+        if fileexist and group == '가':
+            sys.stdout = open('real_applicant.csv', 'w')
+            print("〈" + group + "군 〉")
+            scrape_group(group_dict[group], all_applicant, until_self)
+        else:
+            sys.stdout = open('real_applicant.csv', 'a')
+            print("〈" + group + "군 〉")
+            scrape_group(group_dict[group], all_applicant, until_self)
+print("완료")
 # 코드 실행 후 창 안 닫기게 하려고
 #time.sleep(10000)
