@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
 import os
 import time
 import sys
@@ -13,18 +12,17 @@ import convert  # 반드시 convert.py를 동일 디렉토리에 둬야 함
 
 
 ## 초기설정
-load_dotenv()
-login_id = os.getenv("id")  # 진학사 ID
-login_pw = os.getenv("pw")  # 진학사 비밀번호
+login_id = input("진학사 ID를 입력하세요:\n")  # 진학사 ID
+login_pw = input("진학사 비밀번호를 입력하세요:\n")  # 진학사 비밀번호
 link = "https://hijinhak.jinhak.com/SAT/J1Apply/J1MyApplyList.aspx?LeftTab=1"
 
 chrome_options = Options()
 # headless mode. 향후 개발이 모두 완료된 후 아래 주석 제거할 예정
-"""
+
 chrome_options.add_argument("headless")
 chrome_options.add_argument("window-size=1920x1080")
 chrome_options.add_argument("--start-maximized")
-"""
+
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 ## 링크 접속
@@ -130,18 +128,39 @@ def scrape_group(group_id_js: str, all_applicant: bool, until_self: bool):
 
     print("")  # 가독성을 위해 빈 줄 추가
 
+until_self = bool
+all_applicant = bool
+while until_self != True or until_self != False:
+    until_self = input("본인 앞의 등수까지 크롤링 == True / 전체 등수 크롤링 == False 을 입력하세요:\n")
+    if until_self == "True":
+        until_self = True
+        break
+    elif until_self == "False":
+        until_self = False
+        break
+    else:
+        print("True 또는 False를 입력하세요\n")
 
-until_self = True  # 자신보다 앞의 등수만 크롤링하고 싶다면 True, 전체를 크롤링하려면 False
-all_applicant = False #전체지원자 통계 크롤링 == True, 실제지원자 통계 크롤링 == False
+while all_applicant != True or all_applicant != False:
+    all_applicant = input("전체지원자 통계 크롤링 == True / 실제지원자 통계 크롤링 == False 을 입력하세요\n")
+    if all_applicant == "True":
+        all_applicant = True
+        break
+    elif all_applicant == "False":
+        all_applicant = False
+        break
+    else:
+        print("True 또는 False를 입력하세요\n")
+
 for group in ["가", "나", "다"]:
     if all_applicant == True:
-        sys.stdout = open('all_applicant.csv', 'a')
+        sys.stdout = open('all_applicant.csv', 'w')
         print("〈" + group + "군 〉")
         scrape_group(group_dict[group], all_applicant, until_self)
     else:
-        sys.stdout = open('real_applicant.csv', 'a')
+        sys.stdout = open('real_applicant.csv', 'w')
         print("〈" + group + "군 〉")
         scrape_group(group_dict[group], all_applicant, until_self)
 
 # 코드 실행 후 창 안 닫기게 하려고
-time.sleep(10000)
+#time.sleep(10000)
