@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from pwinput import pwinput
 import time
+import os
 import os.path
 import sys
 import re
@@ -55,7 +56,7 @@ driver.switch_to.frame(driver.find_element(By.ID, "ifrmJ1MyApplyListBtm"))  # if
 group_dict = {}
 for i in range(3):
     group_name = driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/table/tbody/tr[' + str(i + 1) + ']/td[3]').get_attribute("innerHTML")[:-1]  # '군' 제거
-    group_js = driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/table/tbody/tr[' + str(i + 1) + ']/td[10]/a').get_attribute("href")[11:]  # 앞의 'javascript:' 제거
+    group_js = driver.find_element(By.XPATH, '//*[@id="form1"]/div[3]/div/table/tbody/tr[' + str(i + 1) + ']/td[11]/a').get_attribute("href")[11:]  # 앞의 'javascript:' 제거   #22.12.30 진학사 메인페이지 html 구조변경
     group_dict[group_name] = group_js
 
 ## list의 문자들을 int로 변환하는 함수
@@ -175,6 +176,5 @@ for group in ["가", "나", "다"]:
             sys.stdout = open('real_applicant.csv', 'a')
             print("〈" + group + "군 〉")
             scrape_group(group_dict[group], all_applicant, until_self)
-print("완료")
-# 코드 실행 후 창 안 닫기게 하려고
+# 코드 실행 후 창 안 닫기게 하려고(for debugging)
 #time.sleep(10000)
